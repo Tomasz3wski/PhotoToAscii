@@ -6,11 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		5D2A1F912EA9384300FD2211 /* .gitignore in Sources */ = {isa = PBXBuildFile; fileRef = 5D2A1F902EA9383F00FD2211 /* .gitignore */; };
-		5DB9910B2E9C53A2006F8213 /* AsciiEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 5DB9910A2E9C53A2006F8213 /* AsciiEngine */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		5D52E6402E9C26560080A4D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -30,9 +25,9 @@
 
 /* Begin PBXFileReference section */
 		5D2A1F902EA9383F00FD2211 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		5D52E6322E9C26550080A4D7 /* PhotoToAscii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoToAscii.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D52E63F2E9C26560080A4D7 /* PhotoToAsciiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoToAsciiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D52E6492E9C26560080A4D7 /* PhotoToAsciiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoToAsciiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D52E6322E9C26550080A4D7 /* PhotoToAscii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PhotoToAscii.app; path = /Users/jakubtomaszewski/Desktop/PhotoToAscii/build/Debug/PhotoToAscii.app; sourceTree = "<absolute>"; };
+		5D52E63F2E9C26560080A4D7 /* PhotoToAsciiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PhotoToAsciiTests.xctest; path = /Users/jakubtomaszewski/Desktop/PhotoToAscii/build/Debug/PhotoToAscii.app/Contents/PlugIns/PhotoToAsciiTests.xctest; sourceTree = "<absolute>"; };
+		5D52E6492E9C26560080A4D7 /* PhotoToAsciiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PhotoToAsciiUITests.xctest; path = "/Users/jakubtomaszewski/Desktop/PhotoToAscii/build/Debug/PhotoToAsciiUITests-Runner.app/Contents/PlugIns/PhotoToAsciiUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DB9910B2E9C53A2006F8213 /* AsciiEngine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,29 +77,10 @@
 			isa = PBXGroup;
 			children = (
 				5D2A1F902EA9383F00FD2211 /* .gitignore */,
-				5D52E6342E9C26550080A4D7 /* PhotoToAscii */,
 				5D52E6422E9C26560080A4D7 /* PhotoToAsciiTests */,
 				5D52E64C2E9C26560080A4D7 /* PhotoToAsciiUITests */,
-				5DB991092E9C53A2006F8213 /* Frameworks */,
-				5D52E6332E9C26550080A4D7 /* Products */,
+				5D52E6342E9C26550080A4D7 /* PhotoToAscii */,
 			);
-			sourceTree = "<group>";
-		};
-		5D52E6332E9C26550080A4D7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5D52E6322E9C26550080A4D7 /* PhotoToAscii.app */,
-				5D52E63F2E9C26560080A4D7 /* PhotoToAsciiTests.xctest */,
-				5D52E6492E9C26560080A4D7 /* PhotoToAsciiUITests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		5DB991092E9C53A2006F8213 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,14 +97,13 @@
 			buildRules = (
 			);
 			dependencies = (
-				5DB991082E9C539C006F8213 /* PBXTargetDependency */,
+				5DEE60C42EA944F900E002F2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				5D52E6342E9C26550080A4D7 /* PhotoToAscii */,
 			);
 			name = PhotoToAscii;
 			packageProductDependencies = (
-				5DB9910A2E9C53A2006F8213 /* AsciiEngine */,
 			);
 			productName = PhotoToAscii;
 			productReference = 5D52E6322E9C26550080A4D7 /* PhotoToAscii.app */;
@@ -214,10 +188,10 @@
 			mainGroup = 5D52E6292E9C26550080A4D7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5DB991062E9C5393006F8213 /* XCLocalSwiftPackageReference "AsciiEngine" */,
+				5DEE60B22EA9427B00E002F2 /* XCLocalSwiftPackageReference "AsciiEngine" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 5D52E6332E9C26550080A4D7 /* Products */;
+			productRefGroup = 5D52E6292E9C26550080A4D7;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -257,7 +231,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D2A1F912EA9384300FD2211 /* .gitignore in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,9 +261,9 @@
 			target = 5D52E6312E9C26550080A4D7 /* PhotoToAscii */;
 			targetProxy = 5D52E64A2E9C26560080A4D7 /* PBXContainerItemProxy */;
 		};
-		5DB991082E9C539C006F8213 /* PBXTargetDependency */ = {
+		5DEE60C42EA944F900E002F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 5DB991072E9C539C006F8213 /* AsciiEngine */;
+			productRef = 5DEE60C32EA944F900E002F2 /* AsciiEngine */;
 		};
 /* End PBXTargetDependency section */
 
@@ -591,21 +564,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5DB991062E9C5393006F8213 /* XCLocalSwiftPackageReference "AsciiEngine" */ = {
+		5DEE60B22EA9427B00E002F2 /* XCLocalSwiftPackageReference "AsciiEngine" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = AsciiEngine;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5DB991072E9C539C006F8213 /* AsciiEngine */ = {
+		5DEE60C32EA944F900E002F2 /* AsciiEngine */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5DB991062E9C5393006F8213 /* XCLocalSwiftPackageReference "AsciiEngine" */;
-			productName = AsciiEngine;
-		};
-		5DB9910A2E9C53A2006F8213 /* AsciiEngine */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5DB991062E9C5393006F8213 /* XCLocalSwiftPackageReference "AsciiEngine" */;
+			package = 5DEE60B22EA9427B00E002F2 /* XCLocalSwiftPackageReference "AsciiEngine" */;
 			productName = AsciiEngine;
 		};
 /* End XCSwiftPackageProductDependency section */

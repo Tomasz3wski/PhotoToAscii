@@ -1,20 +1,31 @@
 import SwiftUI
 
 struct PhotoAreaView: View {
+    
+    @Binding var loadedImage: NSImage?
+    
     var body: some View {
         VStack{
-            Text("Photo to ASCII converter (aktualnie mnozenie TEST)")
+            Text("Photo to ASCII converter")
                 .font(.largeTitle)
                 .padding()
 
             HStack{
-                // Lewa strona (Original Photo)
+                // Left side (input)
                 VStack{
                     Text("Original Photo")
                     
-                    Rectangle()
-                        .stroke(Color.blue, lineWidth: 3)
+                    if let image = loadedImage {
+                        Image(nsImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: 400, height: 200)
+                        .border(Color.blue, width: 3)
+                        } else {
+                            Rectangle()
+                            .stroke(Color.blue, lineWidth: 3)
+                            .frame(width: 400, height: 200)
+                                        }
                 }
                 
                 Image(systemName: "arrow.right")
@@ -22,7 +33,7 @@ struct PhotoAreaView: View {
                     .foregroundColor(.blue)
                     .padding(.top)
                 
-                // Prawa strona (ASCII Output)
+                // Right side (output)
                 VStack{
                     Text("ASCII")
                     
@@ -36,7 +47,3 @@ struct PhotoAreaView: View {
         .foregroundStyle(.primary)
     }
 }
-
-//#Preview {
-//    PhotoAreaView()
-//}

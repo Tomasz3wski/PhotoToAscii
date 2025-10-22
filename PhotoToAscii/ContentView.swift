@@ -1,24 +1,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    // Zmienne stanu (Single Source of Truth)
-    @State private var number: Int = 1
-    @State private var jezyk: String = "C" // Zmienna była nazwana 'jezyk'
-
+    
+    @State private var numberOfProcessors: Int = 1
+    @State private var selectedLanguage: String = "C"
+    
+    @State private var mainImage: NSImage?
+    
     var body: some View {
         VStack {
-            Text("Photo to ASCII converter")
-                .font(.largeTitle)
-                .padding()
             
-            // Użycie wydzielonego widoku obrazów
-            PhotoAreaView()
+            PhotoAreaView(loadedImage: $mainImage)
             
-            // Użycie wydzielonego widoku kontrolek
-            // Przekazanie zmiennych stanu za pomocą $ (Binding)
-            ControlsView(numberOfProcessors: $number, selectedLanguage: $jezyk)
+            ControlsView(numberOfProcessors: $numberOfProcessors, selectedLanguage: $selectedLanguage, loadedImage: $mainImage)
             
-            Spacer() // Pcha wszystko do góry
+            Spacer()
         }
         .padding()
         .foregroundStyle(.primary)

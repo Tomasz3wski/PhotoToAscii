@@ -1,48 +1,52 @@
 import SwiftUI
 
 struct ControlsView: View {
-    // Binding do zmiennych stanu, które są trzymane w ExampleView
+    
     @Binding var numberOfProcessors: Int
     @Binding var selectedLanguage: String
     
+    @Binding var loadedImage: NSImage?
+    
     let options = [1, 2, 4, 8, 16, 32, 64]
-
+    
     var body: some View {
-        HStack {
-            Button("Load Photo") {
-                // TODO: otwieranie przegladarki plikow
-            }
-            .padding()
-            .foregroundStyle(.blue)
-            
-            Spacer()
-            
-            // Picker dla liczby procesorów
-            Picker("Number of processors", selection: $numberOfProcessors) {
-                ForEach(options, id: \.self) { opcja in
-                    Text("\(opcja)")
+        VStack {
+            HStack {
+                Button("Load Photo") {
+                    ImageLoader.load { newImage in
+                        if let newImage = newImage {
+                            self.loadedImage = newImage
+                        }
+                    }
                 }
+                .padding()
+                .foregroundStyle(.blue)
+                
+                Spacer()
+                
+                Picker("Number of processors", selection: $numberOfProcessors) {
+                    ForEach(options, id: \.self) { opcja in
+                        Text("\(opcja)")
+                    }
+                }
+                .pickerStyle(.menu)
+                
+                Spacer()
+                
+                Picker("Choose language", selection: $selectedLanguage) {
+                    Text("C").tag("C")
+                    Text("ARM").tag("ARM")
+                }
+                .pickerStyle(.segmented)
+                
+                //TODO: Text("Time: ")
             }
-            .pickerStyle(.menu)
+            .padding(.horizontal)
             
-            Spacer()
-            
-            // Picker dla wyboru implementacji (C/ARM)
-            Picker("Choose language", selection: $selectedLanguage) {
-                Text("C").tag("C")
-                Text("ARM").tag("ARM")
+            Button("Start") {
+                // TODO: start processing
             }
-            .pickerStyle(.segmented)
-            
-            Text("Time: ")
+            .foregroundStyle(.red)
         }
-        .padding(.horizontal)
-        
-        Button("Start") {
-            // TODO: start processing
-        }
-        .foregroundStyle(.red)
     }
-    
-    
 }
