@@ -1,0 +1,71 @@
+# -----------------------------------------------
+# 1. macOS / System
+# -----------------------------------------------
+# Pliki systemowe macOS przechowujące metadane folderów
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Pliki tymczasowe i kopie zapasowe popularnych edytorów
+*~
+*.swp
+._*
+.Spotlight-V100
+.Trashes
+
+# -----------------------------------------------
+# 2. Xcode - KRYTYCZNE
+# -----------------------------------------------
+
+# Ustawienia specyficzne dla użytkownika (NIEZBĘDNE w gitignore)
+# Przechowują układ okien, breakpointy, otwarte pliki.
+# Powodują ciągłe konflikty w zespole.
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+
+# Produkty kompilacji (Build)
+# Cały folder, w którym Xcode przechowuje skompilowany kod.
+/Build/
+/DerivedData/
+
+# Debug Symbols (pliki dSYM)
+# Ważne dla crashlogów, ale powinny być wysyłane do serwisu (np. Firebase),
+# a nie trzymane w repozytorium.
+*.dSYM/
+
+# Pliki generowane przez Xcode
+*.hmap
+*.ipa
+*.app
+
+# -----------------------------------------------
+# 3. Swift Package Manager (SPM)
+# -----------------------------------------------
+# Folder kompilacji dla lokalnych paczek
+.build/
+.swiftpm/
+
+# Plik przechowujący stan zależności (zostanie odtworzony)
+# UWAGA: Jeśli chcesz "zamrozić" wersje zależności dla projektu,
+# plik Package.resolved POWINIENEŚ wrzucić do repo!
+# Odkomentuj poniższe, jeśli masz powód, by go ignorować.
+# Package.resolved
+
+# -----------------------------------------------
+# 4. Menedżery Zależności (Dobra praktyka)
+# -----------------------------------------------
+
+# CocoaPods
+/Pods/
+
+# Carthage
+/Carthage/Build/
+/Carthage/Checkouts/
+
+# -----------------------------------------------
+# 5. Ustawienia i sekrety
+# -----------------------------------------------
+# Pliki konfiguracyjne ze zmiennymi środowiskowymi (np. klucze API)
+.env
