@@ -3,6 +3,7 @@ import SwiftUI
 struct PhotoAreaView: View {
     
     @Binding var loadedImage: NSImage?
+    @Binding var processedImage: NSImage?
     
     var body: some View {
         VStack{
@@ -19,7 +20,8 @@ struct PhotoAreaView: View {
                         Image(nsImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 400, height: 200)
+                        //.frame(width: 400, height: 200)
+                        .scaledToFit() // TODO: fix
                         .border(Color.blue, width: 3)
                         } else {
                             Rectangle()
@@ -37,9 +39,18 @@ struct PhotoAreaView: View {
                 VStack{
                     Text("ASCII")
                     
-                    Rectangle()
+                    if let image = processedImage {
+                        Image(nsImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .scaledToFit() // TODO: fix
+                        .border(Color.green, width: 3)
+                        }
+                    else {
+                        Rectangle()
                         .stroke(Color.blue, lineWidth: 3)
                         .frame(width: 400, height: 200)
+                        }
                 }
             }
         }

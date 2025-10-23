@@ -5,7 +5,9 @@ struct ControlsView: View {
     @Binding var numberOfProcessors: Int
     @Binding var selectedLanguage: String
     
+    //image
     @Binding var loadedImage: NSImage?
+    @Binding var processedImage: NSImage?
     
     let options = [1, 2, 4, 8, 16, 32, 64]
     
@@ -16,6 +18,7 @@ struct ControlsView: View {
                     ImageLoader.load { newImage in
                         if let newImage = newImage {
                             self.loadedImage = newImage
+                            self.processedImage = nil
                         }
                     }
                 }
@@ -44,9 +47,29 @@ struct ControlsView: View {
             .padding(.horizontal)
             
             Button("Start") {
-                // TODO: start processing
+                startProcessing()
             }
             .foregroundStyle(.red)
         }
     }
-}
+    
+    private func startProcessing() {
+            guard let imageToProcess = loadedImage else {
+                print("No image loaded")
+                return
+            }
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                let resultImage = ImageProcessor.process(
+                    image: imageToProcess,
+                    language: selectedLanguage,
+                    processors: numberOfProcessors
+                )
+                
+                DispatchQueue.main.async {
+                    self.processedImage = resultImage
+                }
+            }
+        }
+    }

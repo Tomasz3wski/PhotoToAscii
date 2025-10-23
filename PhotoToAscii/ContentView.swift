@@ -6,13 +6,20 @@ struct ContentView: View {
     @State private var selectedLanguage: String = "C"
     
     @State private var mainImage: NSImage?
+    @State private var processedImage: NSImage?
     
     var body: some View {
         VStack {
             
-            PhotoAreaView(loadedImage: $mainImage)
+            PhotoAreaView(
+                loadedImage: $mainImage,
+                processedImage: $processedImage)
             
-            ControlsView(numberOfProcessors: $numberOfProcessors, selectedLanguage: $selectedLanguage, loadedImage: $mainImage)
+            ControlsView(
+                         numberOfProcessors: $numberOfProcessors,
+                         selectedLanguage: $selectedLanguage,
+                         loadedImage: $mainImage,
+                         processedImage: $processedImage)
             
             Spacer()
         }

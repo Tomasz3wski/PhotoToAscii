@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5D24E6712EAA7E0B00D2A314 /* AsciiEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 5D24E6702EAA7E0B00D2A314 /* AsciiEngine */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5D52E6402E9C26560080A4D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,10 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D24E6572EAA77EB00D2A314 /* PhotoToAscii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoToAscii.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D24E6582EAA77EB00D2A314 /* PhotoToAsciiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoToAsciiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D24E6592EAA77EB00D2A314 /* PhotoToAsciiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoToAsciiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D2A1F902EA9383F00FD2211 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		5D52E6322E9C26550080A4D7 /* PhotoToAscii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PhotoToAscii.app; path = /Users/jakubtomaszewski/Desktop/PhotoToAscii/build/Debug/PhotoToAscii.app; sourceTree = "<absolute>"; };
-		5D52E63F2E9C26560080A4D7 /* PhotoToAsciiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PhotoToAsciiTests.xctest; path = /Users/jakubtomaszewski/Desktop/PhotoToAscii/build/Debug/PhotoToAscii.app/Contents/PlugIns/PhotoToAsciiTests.xctest; sourceTree = "<absolute>"; };
-		5D52E6492E9C26560080A4D7 /* PhotoToAsciiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PhotoToAsciiUITests.xctest; path = "/Users/jakubtomaszewski/Desktop/PhotoToAscii/build/Debug/PhotoToAsciiUITests-Runner.app/Contents/PlugIns/PhotoToAsciiUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -53,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D24E6712EAA7E0B00D2A314 /* AsciiEngine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +78,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D24E66F2EAA7E0B00D2A314 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5D52E6292E9C26550080A4D7 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +92,10 @@
 				5D52E6422E9C26560080A4D7 /* PhotoToAsciiTests */,
 				5D52E64C2E9C26560080A4D7 /* PhotoToAsciiUITests */,
 				5D52E6342E9C26550080A4D7 /* PhotoToAscii */,
+				5D24E6572EAA77EB00D2A314 /* PhotoToAscii.app */,
+				5D24E6582EAA77EB00D2A314 /* PhotoToAsciiTests.xctest */,
+				5D24E6592EAA77EB00D2A314 /* PhotoToAsciiUITests.xctest */,
+				5D24E66F2EAA7E0B00D2A314 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,9 +120,10 @@
 			);
 			name = PhotoToAscii;
 			packageProductDependencies = (
+				5D24E6702EAA7E0B00D2A314 /* AsciiEngine */,
 			);
 			productName = PhotoToAscii;
-			productReference = 5D52E6322E9C26550080A4D7 /* PhotoToAscii.app */;
+			productReference = 5D24E6572EAA77EB00D2A314 /* PhotoToAscii.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5D52E63E2E9C26560080A4D7 /* PhotoToAsciiTests */ = {
@@ -129,7 +146,7 @@
 			packageProductDependencies = (
 			);
 			productName = PhotoToAsciiTests;
-			productReference = 5D52E63F2E9C26560080A4D7 /* PhotoToAsciiTests.xctest */;
+			productReference = 5D24E6582EAA77EB00D2A314 /* PhotoToAsciiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		5D52E6482E9C26560080A4D7 /* PhotoToAsciiUITests */ = {
@@ -152,7 +169,7 @@
 			packageProductDependencies = (
 			);
 			productName = PhotoToAsciiUITests;
-			productReference = 5D52E6492E9C26560080A4D7 /* PhotoToAsciiUITests.xctest */;
+			productReference = 5D24E6592EAA77EB00D2A314 /* PhotoToAsciiUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -571,6 +588,11 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5D24E6702EAA7E0B00D2A314 /* AsciiEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5DEE60B22EA9427B00E002F2 /* XCLocalSwiftPackageReference "AsciiEngine" */;
+			productName = AsciiEngine;
+		};
 		5DEE60C32EA944F900E002F2 /* AsciiEngine */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5DEE60B22EA9427B00E002F2 /* XCLocalSwiftPackageReference "AsciiEngine" */;
