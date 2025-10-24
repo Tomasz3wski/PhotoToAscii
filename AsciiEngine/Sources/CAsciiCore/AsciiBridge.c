@@ -4,8 +4,8 @@
 #include <string.h>
 #include <math.h>
 
-static const char *asciiRamp = "@%#*+=-:. ";
-static const int rampLength = 9;
+static const char *asciiRamp = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
+static const int rampLength = 68;
 
 static inline uint8_t grayscale(uint8_t r, uint8_t g, uint8_t b) {
     // (299*R + 587*G + 114*B) / 1000
@@ -13,20 +13,28 @@ static inline uint8_t grayscale(uint8_t r, uint8_t g, uint8_t b) {
     return (uint8_t)(temp / 1000);
 }
 
-void process_image_c(uint8_t* pixels, int width, int height, int bytesPerRow) {
+char* process_image_c(
+    uint8_t* pixels,
+    int width,
+    int height,
+    int bytesPerRow,
+    int blockWidth,
+    int blockHeight
+) {
     printf("C: Generating ASCII-art from %dx%d image...\n", width, height);
-
-    const int blockWidth = 8;
-    const int blockHeight = blockWidth * 2; // 1:2 for char
 
     int asciiArtWidth = width / blockWidth;
     int asciiArtHeight = height / blockHeight;
 
-    FILE* outputFile = fopen("ascii_output.txt", "w");
-    if (!outputFile) {
-        fprintf(stderr, "C: ERROR — could not open ascii_output.txt for writing!\n");
-        return;
+    size_t outputSize = (size_t)(asciiArtWidth + 1) * asciiArtHeight + 1;
+    char* outputString = (char*)malloc(outputSize);
+    
+    if (!outputString) {
+        fprintf(stderr, "C: ERROR — could not allocate memory for output string!\n");
+        return NULL;
     }
+    char* outPtr = outputString;
+
     //TODO: timeStart
     for (int asciiY = 0; asciiY < asciiArtHeight; asciiY++) {
         for (int asciiX = 0; asciiX < asciiArtWidth; asciiX++) {
@@ -53,19 +61,28 @@ void process_image_c(uint8_t* pixels, int width, int height, int bytesPerRow) {
                     pixelCountInBlock++;
                 }
             }
-
-            double averageGrayscale = totalGrayscaleSum / pixelCountInBlock;
+            
+            double averageGrayscale = 0.0;
+            if (pixelCountInBlock > 0) {
+                 averageGrayscale = totalGrayscaleSum / pixelCountInBlock;
+            }
             
             int rampIndex = (int)((averageGrayscale / 255.0) * (rampLength - 1));
             
-            fputc(asciiRamp[rampIndex], outputFile);
+            *outPtr = asciiRamp[rampIndex];
+            outPtr++;
         }
         
-        fputc('\n', outputFile);
+        *outPtr = '\n';
+        outPtr++;
     }
+
+    *outPtr = '\0'; // terminator null
+    
     //TODO: timeEnd
 
-    fclose(outputFile);
-    printf("C: ASCII-art saved to ascii_output.txt (%dx%d chars)\n", asciiArtWidth, asciiArtHeight);
+    printf("C: ASCII-art generated in memory (%dx%d chars)\n", asciiArtWidth, asciiArtHeight);
     fflush(stdout);
+    
+    return outputString;
 }
