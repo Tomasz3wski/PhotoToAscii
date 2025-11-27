@@ -6,24 +6,15 @@ let package = Package(
     products: [
         .library(
             name: "AsciiEngine",
+            type: .dynamic,
             targets: ["CAsciiCore"]
         ),
     ],
     targets: [
         .target(
-            name: "ARM_ASM",
-            path: "Sources/ARM_ASM",
-            sources: ["conversion_loop.S"],
-            publicHeadersPath: "include"
-        ),
-        .target(
             name: "CAsciiCore",
-            dependencies: ["ARM_ASM"],
-            path: "Sources/CAsciiCore",
-            publicHeadersPath: "include",
-            cSettings: [
-                .headerSearchPath("../ARM_ASM/include")
-            ]
+            dependencies: [],
+            path: "Sources/CAsciiCore"
         )
     ]
 )

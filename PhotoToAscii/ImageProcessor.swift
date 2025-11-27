@@ -1,8 +1,19 @@
 import AppKit
-import CAsciiCore //package
+import Darwin
 
 enum ImageProcessor {
 
+    typealias ProcessImageFunctionC = @convention(c) (
+            UnsafeMutablePointer<UInt8>, // pixels
+            Int32,                       // width
+            Int32,                       // height
+            Int32,                       // bytesPerRow
+            Int32,                       // blockWidth
+            Int32                        // blockHeight
+        ) -> UnsafeMutablePointer<CChar>?
+    
+    
+    
     static func process(image: NSImage, language: String, processors: Int, targetAsciiWidth: Int) -> String? {
         
         guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
@@ -46,45 +57,54 @@ enum ImageProcessor {
             return "Error: Image is too small for target width of \(targetAsciiWidth) chars (block size is 0)."
         }
         
-        print("Swift: Processing with \(blockWidth)x\(blockHeight)px block per character.")
+        let frameworkName = "AsciiEngine"
+                
+                // dll
+                let bundleURL = Bundle.main.bundleURL
+                let frameworksURL = bundleURL.appendingPathComponent("Contents/Frameworks")
+                let dylibURL = frameworksURL
+                    .appendingPathComponent("\(frameworkName).framework")
+                    .appendingPathComponent("Versions/A")
+                    .appendingPathComponent(frameworkName)
+                    
+                let dylibPath = dylibURL.path
+                
+                guard let handle = dlopen(dylibPath, RTLD_NOW) else {
+                    let errorMsg = String(cString: dlerror())
+                    print("DLOPEN ERROR: \(errorMsg)")
+                    print("Tried path: \(dylibPath)")
+                    return "Error loading dylib: \(errorMsg)"
+                }
+                defer { dlclose(handle) }
 
-        var resultString: String? = nil
-        
-        pixelData.withUnsafeMutableBytes { rawBufferPtr in
-            let pixelsPtr = rawBufferPtr.bindMemory(to: UInt8.self).baseAddress!
-            
-            var cStringPointer: UnsafeMutablePointer<CChar>? = nil
-            
-            if language == "C" {
-                cStringPointer = process_image_c(
-                    pixelsPtr,
-                    Int32(width),
-                    Int32(height),
-                    Int32(bytesPerRow),
-                    Int32(blockWidth),
-                    Int32(blockHeight)
-                )
-            } else {
-                //ARM
-                print("ARM wip, using C fallback")
-                cStringPointer = process_image_c(
-                    pixelsPtr,
-                    Int32(width),
-                    Int32(height),
-                    Int32(bytesPerRow),
-                    Int32(blockWidth),
-                    Int32(blockHeight)
-                )
-            }
-            
-            if let cPtr = cStringPointer {
-                resultString = String(cString: cPtr)
-                free(cPtr)
-            } else {
-                resultString = "Error: C function returned NULL pointer (check memory allocation)."
+                let symbolName = (language == "C") ? "process_image_c" : "process_image_arm"
+                
+                guard let symbol = dlsym(handle, symbolName) else {
+                    return "Error: Symbol '\(symbolName)' not found in dylib."
+                }
+                
+                let processFunction = unsafeBitCast(symbol, to: ProcessImageFunctionC.self)
+                
+                var resultString: String? = nil
+                
+                pixelData.withUnsafeMutableBytes { rawBufferPtr in
+                    let pixelsPtr = rawBufferPtr.bindMemory(to: UInt8.self).baseAddress!
+                    
+                    let cStringPointer = processFunction(
+                        pixelsPtr,
+                        Int32(width),
+                        Int32(height),
+                        Int32(bytesPerRow),
+                        Int32(blockWidth),
+                        Int32(blockHeight)
+                    )
+                    
+                    if let cPtr = cStringPointer {
+                        resultString = String(cString: cPtr)
+                        free(cPtr) 
+                    }
+                }
+                
+                return resultString
             }
         }
-
-        return resultString
-    }
-}

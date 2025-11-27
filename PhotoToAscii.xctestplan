@@ -1,0 +1,39 @@
+{
+  "configurations" : [
+    {
+      "id" : "53C58B4E-70D3-41EB-AA9E-F0B3F8035446",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PhotoToAscii.xcodeproj",
+      "identifier" : "5D52E6312E9C26550080A4D7",
+      "name" : "PhotoToAscii"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:PhotoToAscii.xcodeproj",
+        "identifier" : "5D52E63E2E9C26560080A4D7",
+        "name" : "PhotoToAsciiTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:PhotoToAscii.xcodeproj",
+        "identifier" : "5D52E6482E9C26560080A4D7",
+        "name" : "PhotoToAsciiUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

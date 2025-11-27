@@ -32,6 +32,7 @@
 		5D24E6582EAA77EB00D2A314 /* PhotoToAsciiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoToAsciiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D24E6592EAA77EB00D2A314 /* PhotoToAsciiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoToAsciiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D2A1F902EA9383F00FD2211 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5D6DA95A2ED2864800D87BC6 /* PhotoToAscii.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhotoToAscii.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -88,6 +89,7 @@
 		5D52E6292E9C26550080A4D7 = {
 			isa = PBXGroup;
 			children = (
+				5D6DA95A2ED2864800D87BC6 /* PhotoToAscii.xctestplan */,
 				5D2A1F902EA9383F00FD2211 /* .gitignore */,
 				5D52E6422E9C26560080A4D7 /* PhotoToAsciiTests */,
 				5D52E64C2E9C26560080A4D7 /* PhotoToAsciiUITests */,

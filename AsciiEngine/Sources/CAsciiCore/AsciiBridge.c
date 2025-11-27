@@ -13,6 +13,7 @@ static inline uint8_t grayscale(uint8_t r, uint8_t g, uint8_t b) {
     return (uint8_t)(temp / 1000);
 }
 
+__attribute__((visibility("default")))
 char* process_image_c(
     uint8_t* pixels,
     int width,
@@ -84,5 +85,69 @@ char* process_image_c(
     printf("C: ASCII-art generated in memory (%dx%d chars)\n", asciiArtWidth, asciiArtHeight);
     fflush(stdout);
     
+    return outputString;
+}
+
+
+//ASEMBLER
+
+extern void ascii_kernel_arm(
+                                 uint8_t* pixels,        // x0
+                                 char* outputBuffer,     // x1
+                                 int width,              // w2
+                                 int height,             // w3
+                                 int bytesPerRow,        // w4
+                                 int blockWidth,         // w5
+                                 int blockHeight,        // w6
+                                 int asciiWidth,         // w7
+                                 // args on stack:
+                                 // [sp]: int asciiHeight
+                                 // [sp+8]: char* asciiRamp
+                                 // [sp+16]: int rampLength
+                                 int asciiHeight,
+                                 const char* rampPtr,
+                                 int rampLen
+                             );
+
+char* process_image_arm(
+    uint8_t* pixels,
+    int width,
+    int height,
+    int bytesPerRow,
+    int blockWidth,
+    int blockHeight
+) {
+    printf("C Wrapper: Preparing environment for ARM Kernel...\n");
+
+    int asciiArtWidth = width / blockWidth;
+    int asciiArtHeight = height / blockHeight;
+
+    size_t outputSize = (size_t)(asciiArtWidth + 1) * asciiArtHeight + 1;
+    char* outputString = (char*)malloc(outputSize);
+    
+    if (!outputString) {
+        fprintf(stderr, "C Wrapper: ERROR — malloc failed!\n");
+        return NULL;
+    }
+    
+    ascii_kernel_arm(
+        pixels,
+        outputString,
+        width,
+        height,
+        bytesPerRow,
+        blockWidth,
+        blockHeight,
+        asciiArtWidth,
+        asciiArtHeight,
+        asciiRamp,
+        rampLength
+    );
+    
+    outputString[outputSize - 1] = '\0';
+
+    printf("C Wrapper: Returned from ARM Kernel.\n");
+    fflush(stdout);
+
     return outputString;
 }
