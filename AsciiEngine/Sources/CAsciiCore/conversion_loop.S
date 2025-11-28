@@ -156,8 +156,6 @@ end_row_processing:
     b       loop_ascii_y
 
 end_main_loops:
-    mov     w0, #0              // Null terminator
-    strb    w0, [x20]
 
     // --- Epilog ---
     ldp     x19, x20, [sp, #0]
