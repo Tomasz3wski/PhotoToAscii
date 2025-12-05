@@ -10,7 +10,8 @@ char* process_image_c(
     int bytesPerRow,
     int blockWidth,
     int blockHeight,
-    int threadCount
+    int threadCount,
+    double* outTimeTaken
 );
 
 char* process_image_arm(
@@ -20,5 +21,6 @@ char* process_image_arm(
     int bytesPerRow,
     int blockWidth,
     int blockHeight,
-    int threadCount
+    int threadCount,
+    double* outTimeTaken
 );

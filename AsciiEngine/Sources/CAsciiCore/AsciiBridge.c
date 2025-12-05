@@ -116,7 +116,8 @@ char* run_multithreaded_processing(
     uint8_t* pixels, int width, int height, int bytesPerRow,
     int blockWidth, int blockHeight, int threadCount,
     void* (*worker_func)(void*),
-    const char* label
+    const char* label,
+    double* outTimeTaken
 ) {
     struct timespec start, end;
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -173,6 +174,11 @@ char* run_multithreaded_processing(
     double time_taken = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 
     printf("%s: Finished in %.6f seconds.\n", label, time_taken);
+    
+    if (outTimeTaken != NULL){
+        *outTimeTaken = time_taken;
+    }
+    
     fflush(stdout);
 
     return outputString;
@@ -180,11 +186,11 @@ char* run_multithreaded_processing(
 
 
 __attribute__((visibility("default")))
-char* process_image_c(uint8_t* p, int w, int h, int bpr, int bw, int bh, int tc) {
-    return run_multithreaded_processing(p, w, h, bpr, bw, bh, tc, thread_worker_c, "C (Multi)");
+char* process_image_c(uint8_t* p, int w, int h, int bpr, int bw, int bh, int tc, double* timeOut) {
+    return run_multithreaded_processing(p, w, h, bpr, bw, bh, tc, thread_worker_c, "C (Multi)", timeOut);
 }
 
 __attribute__((visibility("default")))
-char* process_image_arm(uint8_t* p, int w, int h, int bpr, int bw, int bh, int tc) {
-    return run_multithreaded_processing(p, w, h, bpr, bw, bh, tc, thread_worker_arm, "ARM (Multi)");
+char* process_image_arm(uint8_t* p, int w, int h, int bpr, int bw, int bh, int tc, double* timeOut) {
+    return run_multithreaded_processing(p, w, h, bpr, bw, bh, tc, thread_worker_arm, "ARM (Multi)", timeOut);
 }

@@ -11,13 +11,14 @@ enum ImageProcessor {
         Int32,                       // bytesPerRow
         Int32,                       // blockWidth
         Int32,                       // blockHeight
-        Int32                        // threadCount
+        Int32,                       // threadCount
+        UnsafeMutablePointer<Double>
     ) -> UnsafeMutablePointer<CChar>?
 
-    static func process(image: NSImage, language: String, processors: Int, targetAsciiWidth: Int) -> String? {
+    static func process(image: NSImage, language: String, processors: Int, targetAsciiWidth: Int) -> (String, Double)? {
         
         guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
-            return "Error: No CGImage"
+            return nil
         }
         
         let width = cgImage.width
@@ -28,14 +29,14 @@ enum ImageProcessor {
         guard let context = CGContext(
             data: &pixelData, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow,
             space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return "Error: Context creation failed" }
+        ) else { return nil }
         
         context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
 
-        guard targetAsciiWidth > 0, width >= targetAsciiWidth else { return "Error: Target width issue" }
+        guard targetAsciiWidth > 0, width >= targetAsciiWidth else { return nil }
         let blockWidth = width / targetAsciiWidth
         let blockHeight = blockWidth * 2
-        guard blockWidth > 0 else { return "Error: Block size 0" }
+        guard blockWidth > 0 else { return nil }
 
         let frameworkName = "AsciiEngine"
         let bundleURL = Bundle.main.bundleURL
@@ -47,22 +48,24 @@ enum ImageProcessor {
             
         guard let handle = dlopen(dylibURL.path, RTLD_NOW) else {
             let errorMsg = String(cString: dlerror())
-            return "Error loading dylib: \(errorMsg)"
+            return nil
         }
         defer { dlclose(handle) }
 
         let symbolName = (language == "C") ? "process_image_c" : "process_image_arm"
         
         guard let symbol = dlsym(handle, symbolName) else {
-            return "Error: Symbol '\(symbolName)' not found."
+            return nil
         }
         
         let processFunction = unsafeBitCast(symbol, to: ProcessImageFunctionC.self)
         
-        var resultString: String? = nil
+        var resultTuple: (String, Double)? = nil
         
         pixelData.withUnsafeMutableBytes { rawBufferPtr in
             let pixelsPtr = rawBufferPtr.bindMemory(to: UInt8.self).baseAddress!
+            
+            var timeTaken: Double = 0.0
             
             let cStringPointer = processFunction(
                 pixelsPtr,
@@ -71,15 +74,17 @@ enum ImageProcessor {
                 Int32(bytesPerRow),
                 Int32(blockWidth),
                 Int32(blockHeight),
-                Int32(processors)
+                Int32(processors),
+                &timeTaken
             )
             
             if let cPtr = cStringPointer {
-                resultString = String(cString: cPtr)
+                let asciiString = String(cString: cPtr)
                 free(cPtr)
+                resultTuple = (asciiString, timeTaken)
             }
         }
         
-        return resultString
+        return resultTuple
     }
 }

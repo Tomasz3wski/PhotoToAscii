@@ -9,6 +9,8 @@ struct ControlsView: View {
     
     @Binding var loadedImage: NSImage?
     @Binding var asciiResult: String
+    
+    @Binding var processingTime: Double
 
     let options = [1, 2, 4, 8, 16, 32, 64]
     
@@ -24,6 +26,7 @@ struct ControlsView: View {
                         if let newImage = newImage {
                             self.loadedImage = newImage
                             self.asciiResult = "Ready to process new image."
+                            self.processingTime = 0.0
                         }
                     }
                 }
@@ -78,15 +81,20 @@ struct ControlsView: View {
         self.asciiResult = "Processing, please wait..."
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let result = ImageProcessor.process(
+            let resultTuple = ImageProcessor.process(
                 image: imageToProcess,
                 language: selectedLanguage,
                 processors: numberOfProcessors,
                 targetAsciiWidth: Int(targetAsciiWidth)
-            )
-            
+                        )
+                        
             DispatchQueue.main.async {
-                self.asciiResult = result ?? "Error: Processing failed and returned nil."
+                if let (text, time) = resultTuple {
+                    self.asciiResult = text
+                    self.processingTime = time
+                } else {
+                    self.asciiResult = "Error: Processing failed."
+                }
             }
         }
     }

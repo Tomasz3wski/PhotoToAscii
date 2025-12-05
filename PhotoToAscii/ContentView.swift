@@ -8,6 +8,8 @@ struct ContentView: View {
 
     @State private var mainImage: NSImage?
     @State private var asciiResult: String = "ASCII-Art will appear here..."
+    
+    @State private var processingTime: Double = 0.0
 
     var body: some View {
         VStack(spacing: 0) {
@@ -24,7 +26,8 @@ struct ContentView: View {
                         selectedLanguage: $selectedLanguage,
                         targetAsciiWidth: $targetAsciiWidth,
                         loadedImage: $mainImage,
-                        asciiResult: $asciiResult
+                        asciiResult: $asciiResult,
+                        processingTime: $processingTime
                     )
                 }
                 .padding(.bottom)
@@ -35,10 +38,19 @@ struct ContentView: View {
             Divider()
 
             VStack(alignment: .leading) {
-                Text("ASCII Output:")
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.top, 10)
+                HStack {
+                    Text("ASCII Output:")
+                        .font(.headline)
+                                    
+                                    
+                    if processingTime > 0 {
+                        Text(String(format: "Time: %.4f s", processingTime))
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
                 
                 ScrollView([.horizontal, .vertical]) {
                     Text(asciiResult)
