@@ -115,7 +115,7 @@ PhotoToAscii/
     Bash
     
     ```
-    git clone https://github.com/your-username/PhotoToAscii.git
+    git clone https://github.com/Tomasz3wski/PhotoToAscii.git
     cd PhotoToAscii
     ```
     
